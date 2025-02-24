@@ -24,7 +24,7 @@ const Login = ({setIsLoggedIn}) => {
     }
     console.log(userData)
     try {
-      const response = await axios.post('http://localhost:5000/login',userData);
+      const response = await axios.post('https://recipe-6cw3.onrender.com/login',userData);
       console.log(response.data)
       localStorage.setItem("isLoggedIn" , "true")
       setIsLoggedIn(true)

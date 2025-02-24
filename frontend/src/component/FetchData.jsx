@@ -24,7 +24,7 @@
       setLoading(true);
       setError(null);
       try {
-         const response = await axios.get('http://localhost:5000/api/recipes');
+         const response = await axios.get('https://recipe-6cw3.onrender.com/api/recipes');
          console.log(response.data.data);
          const myres = response.data.data;
          setRecipes(myres);

@@ -23,7 +23,7 @@ const Signup = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/register",
+        "https://recipe-6cw3.onrender.com/register",
         userData
       );
       console.log(response.data);
