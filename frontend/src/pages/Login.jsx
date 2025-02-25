@@ -1,18 +1,22 @@
-import React, { useState } from 'react'
+import { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { ContextProvider } from '../context/ContextApi';
 
 
 
 
 const Login = ({setIsLoggedIn}) => {
   const navigate = useNavigate();
+  const API_URL = import.meta.env.VITE_BASE_URL;
+  const {isAuth, setIsAuth} = useContext(ContextProvider)
   
   const [email ,setEmail ] = useState("")
   const [password ,setPassword ] = useState("")
+
 
   const handleSubmit = async (e) =>{
     e.preventDefault()
@@ -24,13 +28,14 @@ const Login = ({setIsLoggedIn}) => {
     }
     console.log(userData)
     try {
-      const response = await axios.post('https://recipe-6cw3.onrender.com/login',userData);
+      const response = await axios.post(`${API_URL}/login`,userData);
       console.log(response.data)
+      setIsAuth(true)
       localStorage.setItem("isLoggedIn" , "true")
       setIsLoggedIn(true)
       localStorage.setItem("isLogged", "true")
          toast.success("Login Successfull !");
-
+         
          setTimeout(() => navigate("/"), 2000);
     } catch (error) {
       console.error(error)

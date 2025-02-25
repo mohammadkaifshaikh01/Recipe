@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 // import { AppContext } from "../context/AppContext";
@@ -11,6 +11,7 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 //   const { setUser } = useContext(AppContext);
+const API_URL = import.meta.env.VITE_BASE_URL;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,7 +24,7 @@ const Signup = () => {
 
     try {
       const response = await axios.post(
-        "https://recipe-6cw3.onrender.com/register",
+        `${API_URL}/register`,
         userData
       );
       console.log(response.data);
@@ -42,10 +43,10 @@ const Signup = () => {
 
   return (
     <>
-      <nav className="bg-blue-600 p-4 text-white flex justify-between items-center shadow-lg">
-      <h1 onClick={()=>navigate("/")} className="text-2xl font-bold tracking-wide cursor-pointer">MyApp</h1>
+      {/* <nav className="bg-blue-600 p-4 text-white flex justify-between items-center shadow-lg"> */}
+      {/* <h1 onClick={()=>navigate("/")} className="text-2xl font-bold tracking-wide cursor-pointer">MyApp</h1> */}
     
-    </nav>
+    {/* </nav> */}
       <div className="flex justify-center items-center h-[60vh] mt-20 ">
         <div className="w-[550px] bg-white shadow-lg rounded-xl overflow-hidden">
           {/* Header */}

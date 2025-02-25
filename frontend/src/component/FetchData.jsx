@@ -1,9 +1,11 @@
-   import React, { useEffect, useState } from 'react';
+   import { useEffect, useState } from 'react';
    import axios from 'axios';
 // import { data } from 'react-router-dom';
+
    // import { FiShoppingCart } from 'react-icons/fi';
 
    const FetchData = () => {
+   const API_URL = import.meta.env.VITE_BASE_URL;
    const [recipes, setRecipes] = useState([]);
    const [loading, setLoading] = useState(false);
    const [error, setError] = useState(null);
@@ -24,7 +26,7 @@
       setLoading(true);
       setError(null);
       try {
-         const response = await axios.get('https://recipe-6cw3.onrender.com/api/recipes');
+         const response = await axios.get(`${API_URL}/api/recipes`);
          console.log(response.data.data);
          const myres = response.data.data;
          setRecipes(myres);
@@ -36,9 +38,15 @@
       setLoading(false);
    };
 
-   const addToCart = (recipe) => {
-      setCart([...cart, recipe]);
-      setSelected(null)
+   const addToFav = async (recipe) => {
+      console.log(recipe)
+      try {
+         const res = await axios.post(`${API_URL}/addToFav`, recipe)
+         console.log(res);
+         setSelected(false)
+      } catch (error) {
+         console.log(error); 
+      }
    };
 
   useEffect(()=>{
@@ -101,7 +109,7 @@
                Close
                </button>
                   <button 
-               className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition" onClick={()=>addToCart(selected)}
+               className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition" onClick={()=>addToFav({name: selected.name, foodId: selected.id, image: selected.image})}
                >
                Add To Cart
                
